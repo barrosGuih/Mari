@@ -1,11 +1,13 @@
-let save = {
+const save = {
+  nome: "Mari 💜",
   pontos: Number(localStorage.getItem("pontos")) || 0
 };
 
-function atualizarPontos() {
+function salvar() {
   localStorage.setItem("pontos", save.pontos);
-  const el = document.getElementById("pontos");
-  if (el) el.innerText = save.pontos;
 }
 
-atualizarPontos();
+function atualizarPontos() {
+  document.getElementById("pontos").innerText = save.pontos;
+  salvar();
+}

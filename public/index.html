@@ -1,43 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Para Marigata 💜</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Mari 💜</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <audio id="musica" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-<!-- TELA DO AMOR -->
-<div id="loveScreen" class="container">
-  <h1 id="nome">Marigata 💜</h1>
-  <p class="subtitle">Antes de tudo, só preciso saber uma coisa…</p>
 
-  <h2>Você me ama?</h2>
+<h1 onclick="toggleMusic()">Mari 💜</h1>
+<p>Corações: <span id="pontos">0</span></p>
 
-  <button id="btnSim">SIM 💜</button>
-  <button id="btnNao">não 😅</button>
+<div class="menu">
+  <button onclick="location.href='flappy.html'">🎮 Flappy do Amor</button>
+  <button onclick="location.href='quiz.html'">💬 Quiz Sobre Nós</button>
 </div>
 
-<!-- MENU -->
-<div id="menu" class="container" style="display:none;">
-  <h1 id="nomeMenu">Marigata 💜</h1>
-   <p class="subtitle">Clique em seu nome para pausar </p>
-  <p class="subtitle">Mesmo longe, tem um pedacinho de mim aqui com você.</p>
+<div class="recompensas">
+  <h2>💜 Cartinhas 💜</h2>
 
-  <div class="points">
-    ✨ Pontos do amor: <span id="pontos">0</span> / 50
+  <div class="card">
+    <p>📜 Cartinha 1</p>
+    <div class="progress"><div id="p1"></div></div>
+    <span id="t1"></span>
   </div>
 
   <div class="card">
-    <p>Jogue e ganhe pontos 💜</p>
-    <a href="flappy.html" class="game-btn">🎮 MariBird</a>
+    <p>📜 Cartinha 2</p>
+    <div class="progress"><div id="p2"></div></div>
+    <span id="t2"></span>
+  </div>
+
+  <div class="card">
+    <p>📜 Cartinha 3</p>
+    <div class="progress"><div id="p3"></div></div>
+    <span id="t3"></span>
   </div>
 </div>
 
-<audio id="music" src="music.mp3" loop></audio>
-
 <script src="save.js"></script>
-<script src="love.js"></script>
+<script src="recompensas.js"></script>
+<script>
+atualizarPontos();
+atualizarRecompensas();
+</script>
+<script>
+const audio = document.getElementById("musica");
+
+let tocando = localStorage.getItem("musica") === "true";
+
+if (tocando) {
+  audio.volume = 0.4;
+  audio.play().catch(()=>{});
+}
+
+function toggleMusic() {
+  if (audio.paused) {
+    audio.play();
+    localStorage.setItem("musica", "true");
+  } else {
+    audio.pause();
+    localStorage.setItem("musica", "false");
+  }
+}
+</script>
 </body>
 </html>

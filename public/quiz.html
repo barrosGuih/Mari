@@ -3,17 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flappy do Amor</title>
+<title>Quiz do Amor</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>💜 Toque para voar 💜</h2>
-<canvas id="game" width="320" height="420"></canvas>
+<h2 id="pergunta"></h2>
+
+<div class="menu">
+  <button onclick="responder(true)">Verdade 💜</button>
+  <button onclick="responder(false)">Mentira 😅</button>
+</div>
+
 <button onclick="location.href='index.html'">⬅ Voltar</button>
 
 <script src="save.js"></script>
-<script src="flappy.js"></script>
+<script src="quiz.js"></script>
 
 </body>
 </html>
