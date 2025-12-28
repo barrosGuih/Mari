@@ -178,3 +178,49 @@ canvas {
     font-size: 0.95rem;
   }
 }
+
+.quiz-container {
+  max-width: 400px;
+  margin: 40px auto;
+  text-align: center;
+  padding: 20px;
+  background: #1f102b;
+  border-radius: 16px;
+  color: white;
+}
+
+.quiz-container h1 {
+  color: #c084fc;
+}
+
+.botoes button {
+  margin: 10px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.botoes button:first-child {
+  background: #a855f7;
+  color: white;
+}
+
+.botoes button:last-child {
+  background: #9333ea;
+  color: white;
+}
+
+#feedback {
+  margin-top: 15px;
+  min-height: 24px;
+}
+
+.voltar {
+  margin-top: 20px;
+  background: transparent;
+  color: #c084fc;
+  border: none;
+  font-size: 16px;
+}

@@ -8,6 +8,11 @@ function salvar() {
 }
 
 function atualizarPontos() {
-  document.getElementById("pontos").innerText = save.pontos;
+  const el = document.getElementById("pontos");
+
+  if (el) {
+    el.innerText = save.pontos;
+  }
+
   salvar();
 }

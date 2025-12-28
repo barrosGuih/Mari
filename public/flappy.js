@@ -1,56 +1,87 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
+// IMAGEM DO PASSARINHO
+const birdImg = new Image();
+birdImg.src = "bird.png";
+
+// ESTADO
 let y = canvas.height / 2;
 let vel = 0;
 const gravidade = 0.5;
-let itens = [];
 
+// ITENS
+let estrelas = [];
+let ultimoSpawn = 0;
+
+// CONTROLES
 function pular() {
   vel = -8;
 }
 
-canvas.onclick = pular;
+canvas.addEventListener("click", pular);
 canvas.addEventListener("touchstart", e => {
   e.preventDefault();
   pular();
 });
 
-function criarItem() {
-  itens.push({
-    x: canvas.width,
-    y: Math.random() * (canvas.height - 40) + 20
-  });
+// CRIAR ESTRELA
+function criarEstrela(t) {
+  if (t - ultimoSpawn > 1300) {
+    estrelas.push({
+      x: canvas.width + 30,
+      y: Math.random() * (canvas.height - 80) + 40
+    });
+    ultimoSpawn = t;
+  }
 }
 
-setInterval(criarItem, 1500);
+// LOOP
+function loop(t) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-function loop() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  criarEstrela(t);
 
+  // FÍSICA
   vel += gravidade;
   y += vel;
 
-  ctx.font = "28px serif";
-  ctx.fillText("💜", 40, y);
-
-  itens.forEach(i => {
-    i.x -= 2.5;
-    ctx.fillText("✨", i.x, i.y);
-
-    if (i.x < 60 && i.x > 20 && Math.abs(i.y - y) < 25) {
-      save.pontos++;
-      atualizarPontos();
-      i.x = -100;
-    }
-  });
-
-  if (y > canvas.height || y < 0) {
+  // LIMITES
+  if (y < 0) y = 0;
+  if (y > canvas.height - 40) {
     y = canvas.height / 2;
     vel = 0;
+  }
+
+  // DESENHA PASSARINHO (imagem)
+  ctx.drawImage(birdImg, 30, y, 40, 40);
+
+  // ESTRELAS
+  for (let i = estrelas.length - 1; i >= 0; i--) {
+    const e = estrelas[i];
+    e.x -= 2.2;
+
+    ctx.font = "24px serif";
+    ctx.fillText("💜", e.x, e.y);
+
+    // COLISÃO
+    if (
+      e.x < 70 &&
+      e.x > 10 &&
+      Math.abs(e.y - y) < 30
+    ) {
+      save.pontos += 1;
+      atualizarPontos();
+      estrelas.splice(i, 1);
+      continue;
+    }
+
+    if (e.x < -40) estrelas.splice(i, 1);
   }
 
   requestAnimationFrame(loop);
 }
 
-loop();
+birdImg.onload = () => {
+  requestAnimationFrame(loop);
+};
