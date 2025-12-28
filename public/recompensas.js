@@ -1,6 +1,6 @@
 function atualizarRecompensas() {
   const r = [
-    { id:1, max:5 },
+    { id:1, max:5},
     { id:2, max:10 },
     { id:3, max:20 }
   ];
