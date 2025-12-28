@@ -1,55 +1,64 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Para Marigata 💜</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
 
-<!-- TELA DO AMOR -->
-<div id="loveScreen" class="container">
-  <h1 id="nome">Marigata 💜</h1>
-  <p class="subtitle">Antes de tudo, só preciso saber uma coisa…</p>
+let y = 200;
+let vel = 0;
+const grav = 0.5;
 
-  <h2>Você me ama?</h2>
+let itens = [];
 
-  <button id="btnSim">SIM 💜</button>
-  <button id="btnNao">não 😅</button>
-</div>
+function pular() {
+  vel = -8;
+}
 
-<!-- MENU -->
-<div id="menu" class="container" style="display:none;">
-  <h1 id="nomeMenu">Marigata 💜</h1>
-  <p class="subtitle">Mesmo longe, tem um pedacinho de mim aqui com você.</p>
+canvas.addEventListener("click", pular);
+canvas.addEventListener("touchstart", e => {
+  e.preventDefault();
+  pular();
+});
 
-  <div class="points">
-    ✨ Pontos do amor: <span id="pontos">0</span> / 50
-  </div>
-
-  <div class="card">
-    <p>Jogue e ganhe pontos 💜</p>
-    <a href="jogo.html" class="game-btn">🎮 Jogar</a>
-  </div>
-</div>
-
-<audio id="music" src="music.mp3" loop></audio>
-
-<script src="save.js"></script>
-<script src="love.js"></script>
-<script>
-  // PAUSE / PLAY AO CLICAR NO NOME
-  const music = document.getElementById("music");
-  const nomes = document.querySelectorAll("#nome, #nomeMenu");
-
-  nomes.forEach(n => {
-    n.addEventListener("click", () => {
-      if (music.paused) music.play();
-      else music.pause();
-    });
+function criarItem() {
+  itens.push({
+    x: canvas.width,
+    y: Math.random() * 300 + 40
   });
-</script>
+}
 
-</body>
-</html>
+setInterval(criarItem, 1400);
+
+function loop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  vel += grav;
+  y += vel;
+
+  // PERSONAGEM
+  ctx.font = "28px Quicksand";
+  ctx.fillText("💜", 40, y);
+
+  itens.forEach(i => {
+    i.x -= 2.5;
+    ctx.fillText("✨", i.x, i.y);
+
+    // COLISÃO
+    if (i.x < 60 && i.x > 20 && Math.abs(i.y - y) < 25) {
+      save.pontos += 1;
+      atualizarPontos();
+      i.x = -100;
+    }
+  });
+
+  // LIMITE
+  if (y > canvas.height || y < 0) {
+    y = 200;
+    vel = 0;
+  }
+
+  requestAnimationFrame(loop);
+}
+
+loop();
+
+function voltar() {
+  window.location.href = "index.html";
+}
