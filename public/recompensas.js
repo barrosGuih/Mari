@@ -1,8 +1,8 @@
 function atualizarRecompensas() {
   const r = [
-    { id:1, max:5},
-    { id:2, max:10 },
-    { id:3, max:20 }
+    { id:1, max:25},
+    { id:2, max:100 },
+    { id:3, max:200 }
   ];
 
   r.forEach(e => {
