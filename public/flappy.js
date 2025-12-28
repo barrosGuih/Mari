@@ -1,64 +1,72 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-let y = 200;
-let vel = 0;
-const grav = 0.5;
+// ESTADO DO JOGO
+let y = canvas.height / 2;
+let velocidade = 0;
+const gravidade = 0.5;
 
+// ITENS (PONTOS)
 let itens = [];
 
+// PULAR
 function pular() {
-  vel = -8;
+  velocidade = -8;
 }
 
+// CONTROLES (PC + CELULAR)
 canvas.addEventListener("click", pular);
-canvas.addEventListener("touchstart", e => {
+canvas.addEventListener("touchstart", (e) => {
   e.preventDefault();
   pular();
 });
 
+// CRIAR ITENS
 function criarItem() {
   itens.push({
     x: canvas.width,
-    y: Math.random() * 300 + 40
+    y: Math.random() * (canvas.height - 60) + 30
   });
 }
 
 setInterval(criarItem, 1400);
 
+// LOOP PRINCIPAL
 function loop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  vel += grav;
-  y += vel;
+  // FÍSICA
+  velocidade += gravidade;
+  y += velocidade;
 
-  // PERSONAGEM
+  // PERSONAGEM (CORAÇÃO)
   ctx.font = "28px Quicksand";
   ctx.fillText("💜", 40, y);
 
-  itens.forEach(i => {
-    i.x -= 2.5;
-    ctx.fillText("✨", i.x, i.y);
+  // ITENS
+  itens.forEach(item => {
+    item.x -= 2.5;
+    ctx.fillText("✨", item.x, item.y);
 
-    // COLISÃO
-    if (i.x < 60 && i.x > 20 && Math.abs(i.y - y) < 25) {
+    // COLISÃO = PONTO
+    if (
+      item.x < 60 &&
+      item.x > 20 &&
+      Math.abs(item.y - y) < 25
+    ) {
       save.pontos += 1;
       atualizarPontos();
-      i.x = -100;
+      item.x = -100;
     }
   });
 
-  // LIMITE
+  // LIMITES
   if (y > canvas.height || y < 0) {
-    y = 200;
-    vel = 0;
+    y = canvas.height / 2;
+    velocidade = 0;
   }
 
   requestAnimationFrame(loop);
 }
 
 loop();
-
-function voltar() {
-  window.location.href = "index.html";
-}
