@@ -8,16 +8,24 @@ const perguntas = [
     resposta: true
   },
   {
-    texto: "Nosso primeiro encontro foi perfeito",
-    resposta: true
-  },
-  {
-    texto: "Eu te amo mais do que chocolate",
-    resposta: true
-  },
-  {
-    texto: "A gente nunca brigou",
+    texto: "Eu odeio o Filmes carros",
     resposta: false
+  },
+  {
+    texto: "Amamos ver Filmes apesar de toda vez nao conseguimos assistir kkkkk",
+    resposta: true
+  },
+  {
+    texto: "A gente e brega",
+    resposta: false
+  },
+    {
+    texto: "TE AMO MAIS QUE CHACULATE",
+    resposta: true
+  },
+{
+    texto: "Vamos casar um dia e construir uma linda familia?",
+    resposta: true
   }
 ];
 
